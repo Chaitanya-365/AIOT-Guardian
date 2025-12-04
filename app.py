@@ -144,7 +144,6 @@ def get_user_by_username(username):
     """Get user information by username"""
     return USERS.get(username)
 
-def send_whatsapp_notification(message):
     """WhatsApp notification function (disabled)"""
     logger.warning("WhatsApp notifications are currently disabled. Please check the documentation to enable them.")
     return False
@@ -1048,12 +1047,6 @@ def handle_obstruction_timing(is_obstructed, reason, frame, current_time):
                 
                 # Send email notification if configured
                 send_notification_email(reason, obstruction_duration)
-                
-                # Also send WhatsApp notification
-                whatsapp_message = (f"🚨 CAMERA OBSTRUCTION ALERT 🚨\n"
-                                 f"Camera has been covered for {obstruction_duration:.0f} seconds\n"
-                                 f"Reason: {reason}")
-                send_whatsapp_notification(whatsapp_message)
         
         return True
     else:
@@ -1405,12 +1398,6 @@ def cleanup():
     logger.info("Application shutting down")
 
 # Add a simple test route at the end of the file
-@app.route('/test-whatsapp', methods=['GET'])
-def test_whatsapp():
-    """Test WhatsApp notification functionality (disabled)"""
-    error_msg = "WhatsApp notifications are currently disabled. This feature requires Twilio integration."
-    logger.warning(error_msg)
-    return error_msg, 400
 
 @app.route('/test-email', methods=['GET'])
 @app.route('/api/test-email', methods=['GET'])  # Alternative endpoint
